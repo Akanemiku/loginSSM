@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bnuz.login.dao.RecordDao">
+
+    <insert id="insertRecord" parameterType="com.bnuz.login.entity.Record"
+            useGeneratedKeys="true" keyProperty="recordId" keyColumn="record_id">
+        insert into record(user_id)
+        values (#{userId})
+    </insert>
+
+    <select id="findAll" resultType="com.bnuz.login.entity.Record">
+        select user_id, record_id, record_time from record
+        ORDER BY
+        record_id
+    </select>
+</mapper>
