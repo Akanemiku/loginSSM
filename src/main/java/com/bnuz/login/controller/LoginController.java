@@ -39,6 +39,7 @@ public class LoginController {
 
         if (name != null && password != null) {
             if (userService.isLogin(name, password)) {
+                request.setAttribute("user",user);
                 Record record = new Record();
                 record.setUserId(user.getUserId());
                 recordService.addRecord(record);
