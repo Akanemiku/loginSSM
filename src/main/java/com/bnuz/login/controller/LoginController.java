@@ -34,12 +34,13 @@ public class LoginController {
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
                         @RequestParam(value = "size", defaultValue = "5") Integer size,
                         Map<String, Object> map,
-                        HttpServletRequest request) {
+                        HttpServletRequest request,
+                        HttpSession session) {
         User user = userService.getUser(name);
 
         if (name != null && password != null) {
             if (userService.isLogin(name, password)) {
-                request.setAttribute("user",user);
+                session.setAttribute("user",user);
                 Record record = new Record();
                 record.setUserId(user.getUserId());
                 recordService.addRecord(record);
