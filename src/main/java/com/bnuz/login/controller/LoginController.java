@@ -36,6 +36,7 @@ public class LoginController {
                         Map<String, Object> map,
                         HttpServletRequest request) {
         User user = userService.getUser(name);
+
         if (name != null && password != null) {
             if (userService.isLogin(name, password)) {
                 Record record = new Record();
