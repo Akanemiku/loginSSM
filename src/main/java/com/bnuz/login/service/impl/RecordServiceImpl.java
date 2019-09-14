@@ -17,7 +17,7 @@ public class RecordServiceImpl implements RecordService {
         return recordDao.insertRecord(record);
     }
 
-    public List<Record> getRecordList() {
-        return recordDao.findAll();
+    public List<Record> getRecordList(Integer userId) {
+        return recordDao.findAll(userId);
     }
 }

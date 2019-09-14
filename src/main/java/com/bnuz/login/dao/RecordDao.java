@@ -8,5 +8,5 @@ import java.util.List;
 public interface RecordDao {
     int insertRecord(Record record);
 
-    List<Record> findAll();
+    List<Record> findAll(Integer userId);
 }

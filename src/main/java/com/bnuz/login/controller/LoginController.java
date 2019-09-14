@@ -2,6 +2,7 @@ package com.bnuz.login.controller;
 
 import com.bnuz.login.entity.Record;
 import com.bnuz.login.entity.User;
+import com.bnuz.login.enums.LoginEnum;
 import com.bnuz.login.service.RecordService;
 import com.bnuz.login.service.UserService;
 import com.bnuz.login.utils.KeyUtils;
@@ -34,7 +35,6 @@ public class LoginController {
                         @RequestParam(value = "page", defaultValue = "1") Integer page,
                         @RequestParam(value = "size", defaultValue = "5") Integer size,
                         Map<String, Object> map,
-                        HttpServletRequest request,
                         HttpSession session) {
         User user = userService.getUser(name);
 
@@ -44,14 +44,14 @@ public class LoginController {
                 Record record = new Record();
                 record.setUserId(user.getUserId());
                 recordService.addRecord(record);
-                return getList(page, size, map, request);
+                return getList(page, size, map,session);
             } else {
-                map.put("msg", "用户名或密码输入错误!");
+                map.put("msg", LoginEnum.USER_ERROR.getMsg());
                 map.put("url", "index.jsp");
                 return "error";
             }
         } else {
-            map.put("msg", "用户名或密码为空!");
+            map.put("msg", LoginEnum.USER_NULL.getMsg());
             map.put("url", "index.jsp");
             return "error";
         }
@@ -71,16 +71,17 @@ public class LoginController {
     public String success(@RequestParam(value = "page", defaultValue = "1") Integer page,
                           @RequestParam(value = "size", defaultValue = "5") Integer size,
                           Map<String, Object> map,
-                          HttpServletRequest request) {
-        return getList(page, size, map, request);
+                          HttpSession session) {
+        return getList(page, size, map,session);
     }
 
     private String getList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                            @RequestParam(value = "size", defaultValue = "5") Integer size,
                            Map<String, Object> map,
-                           HttpServletRequest request) {
+                           HttpSession session) {
+        User user = (User) session.getAttribute("user");
         PageHelper.startPage(page, size);
-        List<Record> recordList = recordService.getRecordList();
+        List<Record> recordList = recordService.getRecordList(user.getUserId());
         PageInfo pageInfo = new PageInfo(recordList);
         int num = (int) Math.ceil(pageInfo.getTotal() * 1.0 / size);
 
@@ -88,7 +89,7 @@ public class LoginController {
         map.put("page", page);
         map.put("size", size);
         map.put("totalNum", num);
-        request.setAttribute("map", map);
+        session.setAttribute("map", map);
         return "success";
     }
 
@@ -96,12 +97,12 @@ public class LoginController {
     public String modifyPsw(@RequestParam("name") String name, @RequestParam("new") String password, @RequestParam("idcard") String idcard, Map<String, Object> map) {
         User user = userService.getUser(name);
         if(user==null){
-            map.put("msg", "用户名输入不正确");
+            map.put("msg", LoginEnum.USER_NAME_ERROR.getMsg());
             map.put("url", "index.jsp");
             return "error";
         }
         if (!idcard.equals(user.getIdcard())) {
-            map.put("msg", "身份证后六位不正确");
+            map.put("msg", LoginEnum.USER_ID_ERROR.getMsg());
             map.put("url", "index.jsp");
             return "error";
         } else {

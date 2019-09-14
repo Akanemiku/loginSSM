@@ -25,8 +25,8 @@ public class RecordDaoTest extends BaseTest {
 
     @Test
     public void findAll(){
-        PageHelper.startPage(2,5);
-        List<Record> recordList = recordDao.findAll();
+        PageHelper.startPage(1,5);
+        List<Record> recordList = recordDao.findAll(2);
         PageInfo pageInfo = new PageInfo(recordList);
         System.out.println(pageInfo.getTotal());
     }

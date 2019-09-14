@@ -20,7 +20,7 @@ public class RecordServiceTest extends BaseTest {
     @Test
     public void getRecordList(){
         PageHelper.startPage(1,5);
-        List<Record> recordList = recordDao.findAll();
+        List<Record> recordList = recordDao.findAll(1);
         PageInfo pageInfo = new PageInfo(recordList);
         System.out.println(pageInfo.toString());
     }

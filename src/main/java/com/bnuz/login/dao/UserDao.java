@@ -7,5 +7,4 @@ public interface UserDao {
 
     int updatePassword(User user);
 
-
 }

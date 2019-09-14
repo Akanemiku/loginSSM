@@ -8,5 +8,5 @@ import java.util.List;
 public interface RecordService {
     int addRecord(Record record);
 
-    List<Record> getRecordList();
+    List<Record> getRecordList(Integer userId);
 }

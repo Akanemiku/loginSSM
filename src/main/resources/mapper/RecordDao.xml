@@ -11,6 +11,7 @@
 
     <select id="findAll" resultType="com.bnuz.login.entity.Record">
         select user_id, record_id, record_time from record
+        where user_id = #{userId}
         ORDER BY
         record_id
     </select>
