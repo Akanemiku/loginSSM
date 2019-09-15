@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        if(user==null)
+        if (user == null)
             return false;
         else
             return user.getPassword().equals(password);
@@ -34,5 +34,18 @@ public class UserServiceImpl implements UserService {
 
     public int modifyPassword(User user) {
         return userDao.updatePassword(user);
+    }
+
+    public int addUser(User user) {
+        if (user != null) {
+            try {
+                user.setPassword(KeyUtils.sha1(user.getPassword()));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            return userDao.insertUser(user);
+        } else {
+            return 0;
+        }
     }
 }

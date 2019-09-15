@@ -31,4 +31,11 @@ public class RecordDaoTest extends BaseTest {
         System.out.println(pageInfo.getTotal());
     }
 
+    @Test
+    public void delete(){
+        Record record = new Record();
+        record.setRecordId(72);
+        recordDao.deleteRecord(record);
+    }
+
 }

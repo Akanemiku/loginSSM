@@ -28,6 +28,7 @@
                     <th>记录ID</th>
                     <th>用户ID</th>
                     <th>登录时间</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,11 +37,17 @@
                         <td>${info.recordId}</td>
                         <td>${info.userId}</td>
                         <td><fmt:formatDate value="${info.recordTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td><a href="/delete?recordId=${info.recordId}">删除</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
             <div class="col-md-12 column">
+                <ul class="pagination pull-left">
+                    <li>
+                        <button type="button" class="btn btn-default"><a href="/logingout">退出登录</a></button>
+                    </li>
+                </ul>
                 <ul class="pagination pull-right">
                     <script>
                         /**

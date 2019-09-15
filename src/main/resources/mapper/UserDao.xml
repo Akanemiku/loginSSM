@@ -15,4 +15,10 @@
         </set>
         where user_id = #{userId}
     </update>
+
+    <insert id="insertUser" parameterType="com.bnuz.login.entity.User"
+            useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+        insert into user(name, password, idcard)
+        values (#{name},#{password},#{idcard})
+    </insert>
 </mapper>

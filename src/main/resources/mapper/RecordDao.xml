@@ -15,4 +15,9 @@
         ORDER BY
         record_id
     </select>
+
+    <delete id="deleteRecord" parameterType="com.bnuz.login.entity.Record">
+        delete from record
+        where record_id=#{recordId}
+    </delete>
 </mapper>

@@ -8,4 +8,7 @@ public interface UserService {
     User getUser(String name);
 
     int modifyPassword(User user);
+
+    int addUser(User user);
+
 }

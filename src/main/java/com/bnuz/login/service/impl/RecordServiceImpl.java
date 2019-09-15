@@ -20,4 +20,8 @@ public class RecordServiceImpl implements RecordService {
     public List<Record> getRecordList(Integer userId) {
         return recordDao.findAll(userId);
     }
+
+    public int deleteRecord(Record record) {
+        return recordDao.deleteRecord(record);
+    }
 }

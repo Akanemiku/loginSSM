@@ -24,6 +24,7 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -117,4 +118,50 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public String addNewUser(@RequestParam("name") String name,
+                             @RequestParam("password") String password,
+                             @RequestParam("idcard") String idcard,
+                             Map<String, Object> map){
+        User user = new User();
+        if(name!=null&password!=null&idcard!=null){
+            user.setName(name);
+            user.setIdcard(idcard);
+            try {
+                password = KeyUtils.sha1(password);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            user.setPassword(password);
+            userService.addUser(user);
+            return "../../index";
+        }else{
+            map.put("msg",LoginEnum.USER_REGISTER_ERROR.getMsg());
+            map.put("url","index.jsp");
+            return "error";
+        }
+
+    }
+
+    @RequestMapping(value = "/delete",method = RequestMethod.GET)
+    public String deleteRecord(@RequestParam("recordId") Integer recordId,
+                             Map<String, Object> map){
+        if(recordId!=null){
+            Record record = new Record();
+            record.setRecordId(recordId);
+            recordService.deleteRecord(record);
+            return "success";
+        }else{
+            map.put("msg",LoginEnum.RECORD_ID_NULL.getMsg());
+            map.put("url","/success");
+            return "error";
+        }
+
+    }
+
+    @RequestMapping(value = "/logingout",method = RequestMethod.GET)
+    public String loginOut(HttpSession session){
+        session.invalidate();
+        return "../../index";
+    }
 }

@@ -26,4 +26,13 @@ public class UserDaoTest extends BaseTest {
         userDao.updatePassword(user);
     }
 
+    @Test
+    public void insertUser(){
+        User user = new User();
+        user.setName("c");
+        user.setPassword("123");
+        user.setIdcard("123");
+        userDao.insertUser(user);
+    }
+
 }

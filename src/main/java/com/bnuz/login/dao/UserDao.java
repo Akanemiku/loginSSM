@@ -7,4 +7,5 @@ public interface UserDao {
 
     int updatePassword(User user);
 
+    int insertUser(User user);
 }
